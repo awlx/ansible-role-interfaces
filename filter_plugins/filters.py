@@ -61,7 +61,7 @@ def _interface_check(context, interface, interface_type=None):
         if interface_type:
             fact_type = fact["type"]
             if interface_type != fact_type:
-                return _fail("Interface %s is of an unexpected type" % device)
+                return _fail("Interface %s is of an unexpected type %s!=%s " % device,fact_type,interface_type)
 
     # Static IPv4 address
     if interface.get("bootproto") == "static" and interface.get("address"):
@@ -97,20 +97,20 @@ def _interface_check(context, interface, interface_type=None):
         elif fact_address:
             return _fail("Interface %s has an IPv4 address but none was "
                          "requested" % device)
-    
+
     # Static IPv6 address
     if interface.get("bootproto") == "static" and interface.get("ip6"):
         fact_address = fact.get("ipv6", [])
         # IP address
         if len(fact_address) == 0:
             return _fail("Interface %s has no IPv6 address" % device)
-        
+
         for item in fact_address:
             if item["address"] == interface["ip6"]["address"] and item["prefix"] == str(interface["ip6"]["prefix"]):
                 break
         else:
             return _fail("Interface %s has incorrect IPv6 address" % device)
-        
+
         # Gateway
         if interface["ip6"].get("gateway"):
             fact_gateway = context.get("ansible_default_ipv6", {}).get("gateway")
