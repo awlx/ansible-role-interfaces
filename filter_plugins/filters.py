@@ -60,7 +60,7 @@ def _interface_check(context, interface, interface_type=None):
         # Type
         if interface_type:
             fact_type = fact["type"]
-            if interface_type != fact_type:
+            if interface_type != fact_type && interface_type != "infiniband" && fact_type != "ether":
                 return _fail("Interface %s is of an unexpected type %s!=%s " % (device,fact_type,interface_type))
 
     # Static IPv4 address
