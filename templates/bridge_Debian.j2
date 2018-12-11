@@ -21,6 +21,16 @@ bridge_stp {{ item.stp }}
 {% endif %}
 {% endif %}
 
+{% if item.bootproto == 'manual' %}
+iface {{ item.device }} inet manual
+{% if item.ports is defined %}
+bridge_ports {{ item.ports|join(' ') }}
+{% endif %}
+{% if item.stp is defined %}
+bridge_stp {{ item.stp }}
+{% endif %}
+{% endif %}
+
 {% if item.bootproto == 'dhcp' %}
 iface {{ item.device }} inet dhcp
 {% if item.ports is defined %}
