@@ -61,7 +61,7 @@ def _interface_check(context, interface, interface_type=None):
         if interface_type:
             fact_type = fact["type"]
             if interface_type != fact_type:
-                return _fail("Interface %s is of an unexpected type %s!=%s " % device,fact_type,interface_type)
+                return _fail("Interface %s is of an unexpected type %s!=%s " % (device,fact_type,interface_type))
 
     # Static IPv4 address
     if interface.get("bootproto") == "static" and interface.get("address"):
