@@ -13,6 +13,12 @@ netmask {{ item.netmask }}
 {% if item.gateway is defined %}
 gateway {{ item.gateway }}
 {% endif %}
+{% if item.dnsnameservers is defined %}
+dns-nameservers {{ item.dnsnameservers }}
+{% endif %}
+{% if item.dnssearch is defined %}
+dns-search {{ item.dnssearch }}
+{% endif %}
 {% if item.bond_mode is defined %}
 bond-mode {{ item.bond_mode }}
 {% endif %}
